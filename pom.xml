@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>gr.aegean</groupId>
+  <artifactId>math</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven-exec>1.2.1</maven-exec>
+    <mxparser-version>4.4.2</mxparser-version>
+    <assembly-version>3.3.0</assembly-version>
+  </properties>
+  
+  <build>
+    <plugins>
+      <plugin>
+  		<groupId>org.codehaus.mojo</groupId>
+  		<artifactId>exec-maven-plugin</artifactId>
+  		<version>${maven-exec}</version>
+  		<executions>
+    		<execution>
+      			<goals>
+        			<goal>java</goal>
+      			</goals>
+    		</execution>
+        </executions>
+  		<configuration>
+    		<mainClass>math.MathParser</mainClass>
+  		</configuration>
+        </plugin>
+        <plugin>
+	        <artifactId>maven-assembly-plugin</artifactId>
+	        <version>${assembly-version}</version>
+	        <configuration>
+	          <descriptorRefs>
+	            <descriptorRef>jar-with-dependencies</descriptorRef>
+	          </descriptorRefs>
+	          <archive>
+	            <manifest> <!-- allowing the execution of the jar with –jar JVM switch -->
+	              <mainClass>math.MathParser</mainClass>
+	            </manifest>
+          	  </archive>
+	        </configuration>
+	        <executions>
+	          <execution>
+	            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+	            <phase>package</phase> <!-- bind to the packaging phase -->
+	            <goals>
+	              <goal>single</goal>
+	            </goals>
+	          </execution>
+	        </executions>    
+        </plugin>    
+      </plugins>
+  </build>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>org.mariuszgromada.math</groupId>
+		<artifactId>MathParser.org-mXparser</artifactId>
+		<version>${mxparser-version}</version>
+  	</dependency>
+  </dependencies>
+  
+  <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+  
+</project>
