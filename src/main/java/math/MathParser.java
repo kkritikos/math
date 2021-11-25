@@ -1,6 +1,5 @@
 package math;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.mariuszgromada.math.mxparser.Argument;
