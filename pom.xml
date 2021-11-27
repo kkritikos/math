@@ -10,6 +10,8 @@
     <maven-exec>1.2.1</maven-exec>
     <mxparser-version>4.4.2</mxparser-version>
     <assembly-version>3.3.0</assembly-version>
+    <junit-version>5.8.1</junit-version>
+    <surefire-version>2.22.2</surefire-version>
   </properties>
   
   <build>
@@ -51,9 +53,23 @@
 	            </goals>
 	          </execution>
 	        </executions>    
+        </plugin>
+        <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${surefire-version}</version>
         </plugin>    
       </plugins>
   </build>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.0.0-M5</version>
+      </plugin>
+    </plugins>
+  </reporting>
   
   <dependencies>
   	<dependency>
@@ -61,6 +77,12 @@
 		<artifactId>MathParser.org-mXparser</artifactId>
 		<version>${mxparser-version}</version>
   	</dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit-version}</version>
+        <scope>test</scope>
+    </dependency>
   </dependencies>
   
   <pluginRepositories>

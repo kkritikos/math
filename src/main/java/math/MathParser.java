@@ -46,7 +46,7 @@ public class MathParser {
 				throw new MathException("Did not supply any mapping for the missing variables in the given expression");
 			}
 			if (matches == 0) throw new MathException("The mapping supplied did not cover any of the missing variables in the given expression");
-			else throw new MathException("The mapping supplied did not cover some of the missing variables in the given expression");
+			else if (matches < missingArgs.length) throw new MathException("The mapping supplied did not cover some of the missing variables in the given expression");
 		}
 		else {
 			if (args != null && !args.isEmpty())
