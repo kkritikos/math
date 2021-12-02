@@ -202,6 +202,51 @@ public class EvaluationTest {
         
         return DynamicTest.stream(inputGenerator, displayNameGenerator, testExecutor);
 	}
+	
+	@TestFactory
+	@DisplayName("Multiplications with arbitrary int Arguments")
+    public Stream<DynamicTest> checkCorrectOps() {
+
+        Iterator<Map<String,Double>> inputGenerator = new Iterator<Map<String,Double>>() {
+	        Random random = new Random();
+	        int oper1, oper2, op;
+	        int times = 0;
+	
+	        @Override
+	         public boolean hasNext() {
+	              oper1 = random.nextInt(100);
+	              oper2 = random.nextInt(100);
+	              op = random.nextInt(4);
+	              if (op == 2 && oper2 == 0) oper2 = 4;
+	              if (times != 10) {
+	            	  times++;
+	            	  return true;
+	              }
+	              else {
+	            	  times = 0;
+	            	  return false;
+	              }
+	         }
+	        @Override
+	        public Map<String,Double> next() {
+	        	Map<String,Double> map = new HashMap<String,Double>();
+	            switch(op) {
+	            	case 0: map.put(oper1 + " + " + oper2, (double)(oper1 + oper2)); break;
+	            	case 1: map.put(oper1 + " * " + oper2, (double)(oper1 * oper2)); break;
+	            	case 2: map.put(oper1 + " / " + oper2, (double)((double)oper1 / oper2)); break;
+	            	case 3: map.put(oper1 + " ^ " + oper2, (double)(Math.pow(oper1, oper2))); break;
+	            }
+	            System.out.println("String EXPR: " + map.keySet().iterator().next());
+	            
+	            return map;
+	        }
+        };
+
+        Function<Map<String,Double>, String> displayNameGenerator = (input) -> "MultCase:" + input;
+        ThrowingConsumer<Map<String,Double>> testExecutor = (input) -> assertEquals(input.values().iterator().next(), MathParser.expressionEvaluation(input.keySet().iterator().next(),null));
+        
+        return DynamicTest.stream(inputGenerator, displayNameGenerator, testExecutor);
+	}
 
 
 }

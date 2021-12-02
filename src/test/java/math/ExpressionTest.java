@@ -37,4 +37,11 @@ public class ExpressionTest {
 	public void functionMispell(String expr) throws MathException {
 		assertFalse(MathParser.syntaxCheck(expr));
 	}
+	
+	@ParameterizedTest
+	@DisplayName("Checking legal expressions")
+	@ValueSource(strings = { "x", "x * y", " x^y/z ", " x + sin(y) + tan(z) + ln(t) ", " sin(90) + cos(180) + tan(45) " })
+	public void correctExpr(String expr) throws MathException {
+		assertTrue(MathParser.syntaxCheck(expr));
+	}
 }
